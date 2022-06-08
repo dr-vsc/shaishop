@@ -18,7 +18,7 @@ function App() {
   const [products1, setProducts1] = useState(productsData)
   const filted = (category) => {
     let newProducts = productsData.filter((e) =>
-      category === "ALL" ? e : category === e.category)
+      category === "all" ? e : category === e.category)
     setProducts1(newProducts)
   }
   return (
