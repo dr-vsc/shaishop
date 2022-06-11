@@ -6,7 +6,7 @@ import "./Header.css"
 
 // const [ProductsArray, setProducts] = useState(products);
 
-const Header = ({ categories, filted }) => (
+const Header = ({ categories, filter }) => (
   <nav className="product-filter">
 
     <h1>Jackets</h1>
@@ -17,8 +17,8 @@ const Header = ({ categories, filted }) => (
         <label>Filter by:</label>
         <select
           className="category"
-          onChange={(event) => filted(event.target.value)}>
-          <option value={"all"}>All products</option>
+          onChange={(event) => filter(event.target.value)}>
+          <option value="all">All products</option>
           {
             categories.map((category) => {
               return <option key={category} value={category} >{category}</option>
