@@ -1,23 +1,28 @@
 import "./Products.css"
 //  import Products from './components/products/Products.js';
 import Product from '../Product/Product';
-import Loader from "../Loader/Loader";
+// import { Link } from "react-router-dom";
+// import Loader from "../Loader/Loader";
 // const productsdata = useRef(product)
 
 const Products = ({ products }) => {
+    // const {Product}=useContext   ( )
     return (
         <section className="products">
-            {products.length > 0 ?
+            {
                 products.map((product) => {
-                    return <Product
-                        key={product.id}
+                     return(
+                        <Product className="product-card"
+                         key={product.id}
                         id={product.id}
                         title={product.title}
                         price={product.price}
                         image={product.image}
-                    />
-                })
-                : <Loader />}
+                        />
+                     )
+                }
+                )
+              }
         </section>
     )
 }

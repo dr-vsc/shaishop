@@ -6,13 +6,11 @@ import "./Header.css"
 
 // const [ProductsArray, setProducts] = useState(products);
 
-const Header = ({ categories, filter }) => (
+const Header = ({ categories, filter, ShowAgin }) => (
   <nav className="product-filter">
-
     <h1>Jackets</h1>
 
     <div className="sort">
-
       <div className="collection-sort">
         <label>Filter by:</label>
         <select
@@ -27,6 +25,7 @@ const Header = ({ categories, filter }) => (
 
         </select>
 
+          <button onClick={ShowAgin}> feach agin</button>
 
 
       </div>

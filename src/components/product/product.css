@@ -1,10 +1,11 @@
-  body {
+  /* body {
 margin: 0 auto;
 width: 90%;
 max-width: 1240px;
 font-family: "Roboto", sans-serif;
 background-color: #f6f6f6;
-}
+} */
+
 .product-card {
     display: flex;
     flex-direction: column;
@@ -42,11 +43,5 @@ background-color: #f6f6f6;
     flex: 1 46%;
     }
     }
-    body {
-margin: 0 auto;
-width: 90%;
-max-width: 1240px;
-font-family: "Roboto", sans-serif;
-background-color: #f6f6f6;
-}
+  
 @import url(https://fonts.googleapis.com/css?family=Roboto:400,300,500);
