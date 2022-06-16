@@ -1,6 +1,8 @@
+
+
 import "./Header.css"
 
-// import { productsData } from "../../data/Data";
+// import Slider from "../Slider/Slider"
 // import ProductsArray from "../ProductsArray/ProductsArray";
 // import Products from "../Products/Products";
 
@@ -30,6 +32,12 @@ const Header = ({ categories, filter, ShowAgin }) => (
 
       </div>
 
+
+<div>
+  <div> </div>
+  {/* <Slider/>  */}
+  <div> </div>
+</div>
       <div className="collection-sort">
         <label>Sort by:</label>
         <select>

@@ -15,12 +15,11 @@ function App() {
   return (
   
   <>
-     {/* {isLoding ? <Loader  /> : */}
- 
+
   <div className='App'>
       <Link to={'/'}>Home</Link>
      <br/>
-     {/* <Link to={"/products/${productId}"}>TodoDetails</Link> */}
+    
   <Routes>
   <Route path='/' element={<Home/>}/>
           <Route path='/products/:id' element={<TodoDetails/>} />

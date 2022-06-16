@@ -1,33 +1,44 @@
 import { useContext } from "react";
-// import numbersConntext from  "../../contexts/TodoConntext";
-import TodoConntext from  "../../contexts/TodoConntext";
-// import Product from "../Product/Product";
-// import Products from "../Products/Products";
-
+import TodoConntext from "../../contexts/TodoConntext";
 
 const Cart = () => {
-   
-     const {count,productsAraay,id,handleDecrease,handleIncrease}=useContext(TodoConntext);
-    console.log();
- // const {numbers}=useContext(numbersConntext);
-return(
-<div key={id} className="sopping">
- {productsAraay.map((Product)=>{
-    return (
-    <div key={Product.id} className="product-info">
-        <img  alt={"alt"} src={Product.image} width={50}/>
-        <h5 >{Product.title}</h5>
-        <h6 >{Product.price}</h6>
-        <button key={id} onClick={handleDecrease} >-</button>
-        <p >{count}</p>
-        <button key={id} onClick={handleIncrease} >+</button>
-</div>
 
-    ) 
+    const { productsCart, addToCart, removeCart} = useContext(TodoConntext);
+    const handleIncrease = (id) => {
+      
+        // updates the global state
+        addToCart(id);
+        //updates the local state
+        // setQuantity(quantity + 1)
+      
+    }
+    const handleDecrease = (id) => {
+        // updates the global state
+        removeCart(id);
+        //updates the local state
         
-})}
-</div>
-)}
+        // setCount(count-1)
+    }
+    return (
+        <div className="sopping">
+            {productsCart.map((p) => {
+                return (<div key={p.id}>
+                    <div className="p-info">
+                        <img alt={"alt"} src={p.image} width={50} />
+                        <h5>{p.title}</h5>
+                        <h6>{p.price}</h6>
+                        <p>{p.qty}</p>
+                        <button onClick={()=>handleDecrease(p.id)} >-</button>
+                        <button onClick={()=>handleIncrease(p.id) } >+</button>
+                    </div>
+                </div>
+                )
+
+            })}
+        </div>
+    )
+}
+
 
 
 export default Cart;
