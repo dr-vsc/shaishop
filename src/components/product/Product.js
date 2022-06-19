@@ -5,14 +5,13 @@ import "./Product.css"
 import TodoConntext from "../../contexts/TodoConntext"
 import { useContext} from "react";
 import { Link } from "react-router-dom";
+import { Rating } from "@mui/material";
 // import { Buttons } from "../cart/Buttons";
 const Product = ({ image, title, price, id, qty }) => {
     const { addToCart, removeCart } = useContext(TodoConntext);
     // const [quantity, setQuantity] = useState(0);
     
     const handleIncrease = () => {
-      
-    
         addToCart(id);
         //updates the local state
         // setQuantity(quantity + 1)
@@ -37,9 +36,10 @@ const Product = ({ image, title, price, id, qty }) => {
             <div className="product-info">
                 <h5>{title}</h5>
                 <h6>{price}</h6>
+                <Rating max={5} name="half-rating" defaultValue={2.5} precision={0.5} />
+               <br/>
+                {/* <button onClick={handleDecrease} >-</button> */}
                 <p>{qty}</p>
-
-                <button onClick={handleDecrease} >-</button>
                 <button onClick={handleIncrease} >+</button>
             </div>
             {/* <button key={id} onClick={()=>handleDecrease(id)}>-</button> */}

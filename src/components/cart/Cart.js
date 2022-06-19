@@ -28,7 +28,8 @@ const Cart = () => {
                         <h5>{p.title}</h5>
                         <h6>{p.price}</h6>
                         <p>{p.qty}</p>
-                        <button onClick={()=>handleDecrease(p.id)} >-</button>
+                        <button onClick={()=>handleDecrease(p.id)} >Empty a product from the shopping cart
+</button>
                         <button onClick={()=>handleIncrease(p.id) } >+</button>
                     </div>
                 </div>

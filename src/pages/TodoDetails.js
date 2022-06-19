@@ -16,8 +16,8 @@ export default function TodoDetails(){
     const {id}=useParams();
     const [todoDetails,setTodoDetails]=useState(initialState)
     const [isLoding,setLoding]=useState(true);
-
-useEffect(()=>{
+    
+    useEffect(()=>{
 //   setLoding(true)
     fetch(`https://fakestoreapi.com/products/${id}`)
     .then((res)=>res.json())

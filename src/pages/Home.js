@@ -17,12 +17,14 @@ export default function Home() {
   const [err, setErr] = useState(false)
   const [originalproducts, setOriginalProducts] = useState([])
   const [products, setProducts] = useState([])
-  const [productsCart, setProductsCart, count] = useState([])
-
+  const [priceValue, setpriceValue] = useState([])
+  const [productsCart, setProductsCart] = useState([])
+  const [val, setVal] = useState([100,600]);
 
   useEffect(() => {
     fetchProducts()
-  }, [],
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []
   )
 
   const fetchProducts = () => {
@@ -33,7 +35,8 @@ export default function Home() {
       .then((todoList) => {
         setOriginalProducts(todoList);
         setProducts(todoList);
-        // setProductsCart(todoList);
+        setpriceValue(todoList)
+        filterprice(todoList)
         setIsLoding(false)
       })
       .catch(function () {
@@ -65,22 +68,7 @@ export default function Home() {
     console.log(productsCart)
 
   }
-  // const handleIncrease = () =>{
-  //   //    productsAraay.find(x=>x.id===id)
-  //       // updates the global state
-  //       AddToCart(id);
-  //       //updates the local state
-  //       setQuantity(quantity + 1)
-  //       // setCount(count+1)
-  //   }
-  //   const handleDecrease = () =>{
-  //       //    productsAraay.find(x=>x.id===id)
-  //       // updates the global state
-  //       RemoveCart(id);
-  //       //updates the local state
-  //       setQuantity(quantity - 1)
-  //       // setCount(count-1)
-  //   }
+
   const categories = originalproducts.map(p => p.category)
 
     .filter((value, index, array) =>
@@ -93,34 +81,45 @@ export default function Home() {
       category === "all" ? true : category === e.category)
     setProducts(newProducts)
   }
-  //       const filterSlider = (price) => {
-  //      const sortPrices=price.sort(function(a,b){
-  // if(a.price>b.price){
-  //   return 1;
-  // }else if(a.price<b.price){
-  //   return -1;
-  // }else{return 0;}
-  //  } )
-  // const extremePrices= [sortPrices[0],sortPrices[sortPrices.length-1]]
-  // return extremePrices;}
+        const filterSlider = (filterSlider) => {
+
+       const sortPrices=filterSlider.sort((a,b)=>{
+         if(a.price > b.price){
+           return -1;
+          }else if(a.price <b.price){
+            return 1;
+          }else{return 0;}
+        } )
+    setpriceValue([sortPrices[0],sortPrices[sortPrices.length-1]])
+   
+  }  
+  useEffect(()=>console.log(priceValue),[priceValue])
+  const filterprice = (todoList) => {
+    const minMax=todoList.map((product)=>product.price).sort((a,b)=>{
+      if(a< b){ return -1 }
+      else if(a > b){ return 1}
+      else{return 0}
+    } )
+    setVal([minMax[0],minMax[minMax.length-1]])
+  }  
+  console.log(val,priceValue);
+  useEffect(()=>console.log(val),[val])
 
   return <TodoConntext.Provider value={{
     products: products,
-    // AddToCart:AddToCart,
     removeCart: removeCart,
     productsCart: productsCart,
     isLoding: isLoding,
     addToCart: addToCart,
-    count: count,
-    // filterSlider:filterSlider,
-    // leastExpensiveObj:leastExpensiveObj,
-    // mostEXpensiveObj:mostEXpensiveObj,
+    filterSlider:filterSlider,
+    priceValue:priceValue,
+ val:val
     // price:value,
 
 
   }}>
     <><Cart key={id} />
-      <Header categories={categories}
+      <Header categories={categories} filterSlider={filterSlider}
 
         filter={filter} ShowAgin={fetchProducts}
       />
@@ -131,6 +130,5 @@ export default function Home() {
         <Products products={products} />
       }</>
   </TodoConntext.Provider>
+        }
 
-
-}

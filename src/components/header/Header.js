@@ -1,14 +1,15 @@
-
-
 import "./Header.css"
-
-// import Slider from "../Slider/Slider"
+import Slider from "../Slider/Slider"
 // import ProductsArray from "../ProductsArray/ProductsArray";
 // import Products from "../Products/Products";
+// import TodoConntext from '../../contexts/TodoConntext';
+// import { useContext } from "react";
 
 // const [ProductsArray, setProducts] = useState(products);
 
-const Header = ({ categories, filter, ShowAgin }) => (
+const Header = ({ categories, filter, ShowAgin }) => {
+  // const [priceValue]=useContext(TodoConntext)
+  return(
   <nav className="product-filter">
     <h1>Jackets</h1>
 
@@ -29,15 +30,9 @@ const Header = ({ categories, filter, ShowAgin }) => (
 
           <button onClick={ShowAgin}> feach agin</button>
 
-
       </div>
 
 
-<div>
-  <div> </div>
-  {/* <Slider/>  */}
-  <div> </div>
-</div>
       <div className="collection-sort">
         <label>Sort by:</label>
         <select>
@@ -52,8 +47,22 @@ const Header = ({ categories, filter, ShowAgin }) => (
         </select>
       </div>
     </div>
+<div>
+
+<Slider
+        getAriaLabel={() => 'Temperature range'}
+        // value={value}
+        // max={priceValue[0]}
+        // min={priceValue[priceValue.length-1]}
+        // onChange={handleChange}
+        // valueLabelDisplay="auto"
+        // getAriaValueText={valuetext}
+    
+      /> 
+ 
+</div>
   </nav >
-)
+)}
 
 
 export default Header;
