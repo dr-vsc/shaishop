@@ -4,24 +4,23 @@ import Product from '../Product/Product';
 // const productsdata = useRef(product)
 
 const Products = ({ products }) => {
-
     return (
         <section className="products">
             {
                 products.map((product) => {
                     return (
                         <Product className="product-card"
-                        key={product.id}
-                            id={product.id}
+                            key={product._id}
+                            id={product._id}
                             title={product.title}
                             price={product.price}
                             image={product.image}
-                            qty={ 0 ??product.qty }
-                            
-                            />
-                        )
-                    }
+                            qty={0 ?? product.qty}
+
+                        />
                     )
+                }
+                )
             }
         </section>
     )
