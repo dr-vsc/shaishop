@@ -3,13 +3,13 @@
 // import ShowBtn from "../components/BtnText/ShowBtn"
 import { useEffect, useState } from 'react';
 import Cart from '../components/cart/Cart';
-import Products from '../components/Products/Products';
-import Header from '../components/Header/Header';
+import Products from '../components/products/Products';
+import Header from '../components/header/Header';
 import Loader from '../components/Loader/Loader';
 import TodoConntext from '../contexts/TodoConntext';
 import { useParams } from 'react-router-dom';
 
-// import Cart from './components/cart/Cart';
+
 export default function Home() {
   const { id } = useParams();
   // const [ quantity, setQuantity ] = useState(0);
@@ -17,26 +17,28 @@ export default function Home() {
   const [err, setErr] = useState(false)
   const [originalproducts, setOriginalProducts] = useState([])
   const [products, setProducts] = useState([])
-  const [priceValue, setpriceValue] = useState([])
   const [productsCart, setProductsCart] = useState([])
-  const [val, setVal] = useState([100,600]);
+  const [priceValue, setpriceValue] = useState([1, 1000])
+  const [val, setVal] = useState([priceValue[0], priceValue[1]]);
+  const [priceFilter, setPriceFilter] = useState([]);
 
   useEffect(() => {
     fetchProducts()
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []
   )
 
   const fetchProducts = () => {
     setIsLoding(true)
     setErr(false)
-    fetch("https://bedecked-stone-turret.glitch.me/products")
+    fetch("/api/products")
       .then((res) => res.json())
       .then((todoList) => {
         setOriginalProducts(todoList);
         setProducts(todoList);
         setpriceValue(todoList)
-        filterprice(todoList)
+        minMax(todoList)
+        setPriceFilter(todoList)
         setIsLoding(false)
       })
       .catch(function () {
@@ -49,11 +51,13 @@ export default function Home() {
     const add = productsCart.find(p => p.id === id)
     if (add) {
       setProductsCart(productsCart.map(x => x.id === id ? { ...add, qty: add.qty + 1 } : x)
-      )}
+      )
+    }
     else {
       const addNew = originalproducts.find(x => x.id === id)
       setProductsCart([...productsCart, { ...addNew, qty: 1 }])
-    }}
+    }
+  }
 
   function removeCart(id) {
     const remove = productsCart.findIndex(p => p.id === id)
@@ -65,7 +69,6 @@ export default function Home() {
       const removeNew = productsCart.filter(x => x.id !== id)
       setProductsCart(removeNew)
     };
-    console.log(productsCart)
 
   }
 
@@ -80,30 +83,34 @@ export default function Home() {
     let newProducts = originalproducts.filter((e) =>
       category === "all" ? true : category === e.category)
     setProducts(newProducts)
-  }
-        const filterSlider = (filterSlider) => {
+    setPriceFilter(newProducts)
 
-       const sortPrices=filterSlider.sort((a,b)=>{
-         if(a.price > b.price){
-           return -1;
-          }else if(a.price <b.price){
-            return 1;
-          }else{return 0;}
-        } )
-    setpriceValue([sortPrices[0],sortPrices[sortPrices.length-1]])
-   
-  }  
-  useEffect(()=>console.log(priceValue),[priceValue])
-  const filterprice = (todoList) => {
-    const minMax=todoList.map((product)=>product.price).sort((a,b)=>{
-      if(a< b){ return -1 }
-      else if(a > b){ return 1}
-      else{return 0}
-    } )
-    setVal([minMax[0],minMax[minMax.length-1]])
-  }  
-  console.log(val,priceValue);
-  useEffect(()=>console.log(val),[val])
+  }
+  // const filterSlider = (filterSlider) => {
+  //   const sortPrices = filterSlider.filter((a) => (
+  //     a.price >= val[0] &&
+  //     a.price <= val[val.length - 1])
+  //   )
+  //   console.log(sortPrices);
+  // }
+
+  const minMax = (todoList) => {
+    const minMax = todoList.map((product) => product.price).sort((a, b) => {
+      if (a < b) { return -1 }
+      else if (a > b) { return 1 }
+      else { return 0 }
+    })
+    setpriceValue([minMax[0], minMax[minMax.length - 1]])
+  }
+  function saliderPriceFilter(priceValue) {
+    console.log(priceValue);
+    const filterPrice = priceFilter.filter((productObg) =>
+      productObg.price >= priceValue[0] && productObg.price <= priceValue[1])
+
+    setPriceFilter(filterPrice)
+
+  }
+  // useEffect(() => console.log(val), [val])
 
   return <TodoConntext.Provider value={{
     products: products,
@@ -111,15 +118,16 @@ export default function Home() {
     productsCart: productsCart,
     isLoding: isLoding,
     addToCart: addToCart,
-    filterSlider:filterSlider,
-    priceValue:priceValue,
- val:val
+    priceValue: priceValue,
+    val: val,
+    setVal: setVal,
+    saliderPriceFilter: saliderPriceFilter,
     // price:value,
 
 
   }}>
     <><Cart key={id} />
-      <Header categories={categories} filterSlider={filterSlider}
+      <Header categories={categories}
 
         filter={filter} ShowAgin={fetchProducts}
       />
@@ -130,5 +138,5 @@ export default function Home() {
         <Products products={products} />
       }</>
   </TodoConntext.Provider>
-        }
+}
 
