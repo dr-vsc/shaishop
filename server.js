@@ -13,7 +13,7 @@ app.use(express.json());
 // Serve static files from the React app
 app.use(express.static('client/build'));
 
-const Product = mongoose.model("Product", {
+const Product = mongoose.model("product", {
     title: String,
     description: String,
     category: String,
@@ -25,7 +25,6 @@ const Product = mongoose.model("Product", {
     }
     //  completed: Boolean,
 })
-
 
 app.get("/api", (req, res) => {
     res.send("hello world")
@@ -42,27 +41,27 @@ app.get("/api", (req, res) => {
 //         console.log("fff", filteredProducts);
 //         res.send(filteredProducts);
 //     });
-// });
+// });s
 
-app.get("/api/Products/:productId", (req, res) => {
+app.get("/api/products/:productId", (req, res) => {
     const { productId } = req.params;
     Product.findById(productId)
         .then((product) => {
             res.send(product);
+            console.log("product", product);
         })
         .catch((err) => res.send("err"));
 });
 
-app.get("/api/Products", (req, res) => {
+app.get("/api/products", (req, res) => {
     Product.find()
         .then((products) => {
-
             res.send(products);
         })
         .catch((err) => res.send("err"));
 });
 
-app.post("/api/Products", (req, res) => {
+app.post("/api/products", (req, res) => {
     const { title, price, description, category, image, rating: { rate, count } } = req.body;
     Product.insertMany([
         {
@@ -81,7 +80,7 @@ app.post("/api/Products", (req, res) => {
     });
 });
 
-app.patch("/api/Products/:productId", (req, res) => {
+app.patch("/api/products/:productId", (req, res) => {
     const { productId } = req.params;
 
     Product.findByIdAndUpdate(productId, req.body)
@@ -89,7 +88,7 @@ app.patch("/api/Products/:productId", (req, res) => {
         .catch((err) => res.send("err"));
 });
 
-app.delete("/api/Products/:productId", (req, res) => {
+app.delete("/api/products/:productId", (req, res) => {
     const { productId } = req.params;
 
     Product.findByIdAndRemove(productId)
@@ -98,7 +97,7 @@ app.delete("/api/Products/:productId", (req, res) => {
 });
 
 app.get('*', (req, res) => {
-    res.sendFile(__dirname + '/client/build/index.html');
+    res.sendFile('client/build/index.html');
 });
 
 const { DB_PASS, DB_USER, DB_HOST, DB_NAME } = process.env

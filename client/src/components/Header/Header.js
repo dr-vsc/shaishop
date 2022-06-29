@@ -1,4 +1,4 @@
-import "./Header.css"
+import "./header.css"
 import Slider from "../Slider/Slider"
 // import ProductsArray from "../ProductsArray/ProductsArray";
 // import Products from "../Products/Products";

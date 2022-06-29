@@ -2,9 +2,9 @@
 /* eslint-disable no-sequences */
 // import ShowBtn from "../components/BtnText/ShowBtn"
 import { useEffect, useState } from 'react';
-import Cart from '../components/Card/Card';
-import Products from '../components/Products/Products';
-import Header from '../components/Header/Header';
+import Cart from '../components/cart/Cart';
+import Products from '../components/products/Products';
+import Header from '../components/header/Header';
 import Loader from '../components/Loader/Loader';
 import TodoConntext from '../contexts/TodoConntext';
 import { useParams } from 'react-router-dom';
@@ -31,7 +31,7 @@ export default function Home() {
   const fetchProducts = () => {
     setIsLoding(true)
     setErr(false)
-    fetch("/api/Products")
+    fetch("/api/products")
       .then((res) => res.json())
       .then((todoList) => {
         setOriginalProducts(todoList);
@@ -69,7 +69,6 @@ export default function Home() {
       const removeNew = productsCart.filter(x => x.id !== id)
       setProductsCart(removeNew)
     };
-    console.log(productsCart)
 
   }
 

@@ -1,9 +1,10 @@
 import "./Products.css"
 //  import Products from './components/products/Products.js';
-import Product from '../Product/Product';
+import Product from '../product/Product';
 // const productsdata = useRef(product)
 
 const Products = ({ products }) => {
+    // console.log(products)
     return (
         <section className="products">
             {
