@@ -97,7 +97,7 @@ app.delete("/api/products/:productId", (req, res) => {
 });
 
 app.get('*', (req, res) => {
-    res.sendFile('client/build/index.html');
+    res.sendFile(__dirname + 'client/build/index.html');
 });
 
 const { DB_PASS, DB_USER, DB_HOST, DB_NAME } = process.env
