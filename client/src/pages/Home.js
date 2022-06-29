@@ -3,8 +3,8 @@
 // import ShowBtn from "../components/BtnText/ShowBtn"
 import { useEffect, useState } from 'react';
 import Cart from '../components/cart/Cart';
-import Products from '../components/products/Products';
-import Header from '../components/header/Header';
+import Products from '../components/Products/Products';
+import Header from '../components/Header/Header';
 import Loader from '../components/Loader/Loader';
 import TodoConntext from '../contexts/TodoConntext';
 import { useParams } from 'react-router-dom';

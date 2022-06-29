@@ -1,6 +1,6 @@
 import "./Products.css"
 //  import Products from './components/products/Products.js';
-import Product from '../product/Product';
+import Product from '../Product/Product';
 // const productsdata = useRef(product)
 
 const Products = ({ products }) => {
